@@ -5,6 +5,7 @@ namespace App\Http\Controllers\v1;
 use Illuminate\Http\Request;
 use App\Models\ControlFormInput;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ControlFormInputResource;
 use App\Services\ControlFormInputService;
 
 class ControlFormInputApiController extends Controller
@@ -16,6 +17,6 @@ class ControlFormInputApiController extends Controller
         $service = new ControlFormInputService($lists);
         $lists = $service->update($request);
 
-        return $lists;
+        return ControlFormInputResource::make($lists);
     }
 }
