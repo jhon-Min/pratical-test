@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\v1\AuthApiController;
+use App\Http\Controllers\v1\ControlFormInputApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,8 +16,9 @@ use App\Http\Controllers\v1\AuthApiController;
 |
 */
 
-Route::post('login', [AuthApiController::class, 'login']);
-Route::post('register', [AuthApiController::class, 'register']);
+Route::post('v1/login', [AuthApiController::class, 'login']);
+Route::post('v1/register', [AuthApiController::class, 'register']);
 
-Route::middleware('auth:sanctum')->group(function () {
+Route::prefix('v1')->middleware('auth:sanctum')->group(function () {
+    Route::post('control_ui', [ControlFormInputApiController::class, 'controlUi']);
 });

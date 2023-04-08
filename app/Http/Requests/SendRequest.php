@@ -22,12 +22,12 @@ class SendRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string',
+            'name' => 'string',
             'message' => 'required|string',
-            'phone' => 'required|string',
+            'phone' => 'string',
             'email' => 'required|email|unique:users',
-            'date_of_birth' => 'required|date',
-            'gender' => 'required|in:male,female,other',
+            'date_of_birth' => 'date',
+            'gender' => 'in:male,female,other',
         ];
     }
 }

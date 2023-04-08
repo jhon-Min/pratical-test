@@ -2,28 +2,40 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\SendRequest;
 use Illuminate\Http\Request;
+use App\Http\Requests\SendRequest;
+use App\Mail\SendMail;
+use App\Models\ControlFormInput;
+use App\Services\ContactFormService;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\ContactFormSubmitted;
-use App\Models\ContactForm;
 
 class ContactFormController extends Controller
 {
+    protected $contactFormService;
+
+    public function __construct(ContactFormService $contactFormService)
+    {
+        $this->contactFormService = $contactFormService;
+    }
+
     public function send(SendRequest $request)
     {
         $validatedData = $request->validated();
 
-        // Create a new Contact model instance and fill it with the validated data
-        $contact = new ContactForm();
-        $contact->fill($validatedData);
-        $contact->save();
+        try {
+            Mail::to($validatedData['email'])->send(new SendMail($validatedData));
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', 'Please fill valid email');
+        }
+
+        $this->contactFormService->store($validatedData);
 
         return redirect()->back()->with('success', 'Send successfully!');
     }
 
     public function contactForm()
     {
-        return view('contact.send');
+        $lists = ControlFormInput::get()[0];
+        return view('contact.send', compact('lists'));
     }
 }

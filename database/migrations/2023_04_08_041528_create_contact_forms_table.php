@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('contact_forms', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->default('default text');
             $table->text('message');
-            $table->string('phone');
-            $table->string('email')->unique();
-            $table->date('date_of_birth');
-            $table->enum('gender', ['male', 'female', 'other']);
+            $table->string('phone')->default('09421711078');
+            $table->string('email');
+            $table->date('date_of_birth')->nullable();
+            $table->enum('gender', ['male', 'female', 'other'])->default('other');
             $table->timestamps();
 
             $table->index('name');
