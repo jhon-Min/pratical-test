@@ -94,5 +94,7 @@ Make sure that you've created the database in advance and added the configuratio
 * Rename or copy .env.example file to .env
 * php artisan key:generate
 * Set your database credentials in your .env file
+* php artisan migrate
+* php artisan db:seed
 * Set your mailtrap smtp service credential in your .env file.
 * Attention! Google's Gmail service will not be supported by Google starting May 30th, 2022. Therefore, you will need to integrate your Mailtrap account credentials.
