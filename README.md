@@ -84,7 +84,7 @@ Make sure that you've created the database in advance and added the configuratio
 
 **Deploy**
 
-* Make sure your enviroment meet Laravel 8 requirements.
+* Make sure your enviroment meet Laravel 10 requirements.
 * Install all package via composer package manage.
 
 
